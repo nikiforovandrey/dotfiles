@@ -1,11 +1,13 @@
 #!/bin/bash
-for file in ~/{.bash_prompt,.exports,.aliases,.functions,.extra}; do
-  # shellcheck source=/dev/null
-  [ -f "$file" ] && source "$file"
-done
-unset file
+source ~/.bash_prompt
+source ~/.functions
+source ~/.exports
+source ~/.aliases
+
 # extra libs
 source ~/local/z/z.sh
+# absorb keychain managed keys on arch
+[ -f ~/.keychain/agent-sh ] && source ~/.keychain/agent-sh
 
 # Case-insensitive globbing (used in pathname expansion)
 shopt -s nocaseglob
@@ -25,6 +27,3 @@ if [ -x /usr/bin/dircolors ]; then
   alias fgrep='fgrep --color=auto'
   alias egrep='egrep --color=auto'
 fi
-
-# absorb keychain managed keys
-source ~/.keychain/agent-sh
